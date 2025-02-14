@@ -13,7 +13,6 @@ import jakarta.servlet.annotation.*;
 
 @WebServlet("/")
 public class UserServlet extends HttpServlet {
-    //private static final long serialVersionUID = 1L;
     private static final long serialVersionUID = 1L;
     private UserDao userDao;
 
@@ -54,11 +53,11 @@ public class UserServlet extends HttpServlet {
                         }
                         break;
                     case "/update":
-//                        try {
-//                            updateUser(request, response);
-//                        } catch (SQLException e) {
-//                            throw new RuntimeException(e);
-//                        }
+                        try {
+                            updateUser(request, response);
+                        } catch (SQLException e) {
+                            throw new RuntimeException(e);
+                        }
                         break;
                     case "/list":
                         try {
@@ -81,17 +80,18 @@ public class UserServlet extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    //    private void updateUser(HttpServletRequest request, HttpServletResponse response)
-//            throws SQLException, IOException {
-//        Long id = Long.parseLong(request.getParameter("id"));
-//        String nom = request.getParameter("nom");
-//        String prenom = request.getParameter("prenom");
-//        String poste = request.getParameter("poste");
-//        int salaire = Integer.parseInt(request.getParameter("salaire"));
-//        User user = new User(id, nom, prenom, poste,salaire);
-//         userDao.updateUser(user);
-//        response.sendRedirect("list");
-//    }
+        private void updateUser(HttpServletRequest request, HttpServletResponse response)
+            throws SQLException, IOException {
+        Long id = Long.parseLong(request.getParameter("id"));
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+        String poste = request.getParameter("poste");
+        int salaire = Integer.parseInt(request.getParameter("salaire"));
+        User user = new User(id, nom, prenom, poste,salaire);
+         userDao.updateUser(user);
+            System.out.println("ghjk");
+         response.sendRedirect(request.getContextPath() + "/list");
+    }
     private void deleteUser(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         Long id =Long.parseLong(request.getParameter("id"));

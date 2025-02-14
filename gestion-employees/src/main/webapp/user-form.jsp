@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>User Management Application</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
 <header>
@@ -16,30 +16,38 @@
 <div class="container col-md-5">
     <div class="card">
         <div class="card-body">
-                <form action="<%=request.getContextPath()%>/insert" method="post">
-                    <fieldset class="form-group">
-                        <label>Nom</label>
-                        <input type="text" class="form-control" name="nom" required>
-                    </fieldset>
+            <%
+                String id = request.getParameter("id") != null ? request.getParameter("id") : "";
+                String nom = request.getParameter("nom") != null ? request.getParameter("nom") : "";
+                String prenom = request.getParameter("prenom") != null ? request.getParameter("prenom") : "";
+                String poste = request.getParameter("poste") != null ? request.getParameter("poste") : "";
+                String salaire = request.getParameter("salaire") != null ? request.getParameter("salaire") : "";
+                boolean isEditing = !id.isEmpty();
+            %>
+            <form action="<%= request.getContextPath() %>/<%= isEditing ? "update" : "insert" %>" method="post">
+                <input type="hidden" name="id" value="<%= id %>">
 
-                    <fieldset class="form-group">
-                        <label>Prénom</label>
-                        <input type="text" class="form-control" name="prenom" required>
-                    </fieldset>
+                <fieldset class="form-group">
+                    <label>Nom</label>
+                    <input type="text" class="form-control" name="nom" value="<%= nom %>" required>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Prénom</label>
+                    <input type="text" class="form-control" name="prenom" value="<%= prenom %>" required>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Poste</label>
+                    <input type="text" class="form-control" name="poste" value="<%= poste %>" required>
+                </fieldset>
+                <fieldset class="form-group">
+                    <label>Salaire</label>
+                    <input type="number" class="form-control" name="salaire" value="<%= salaire %>" required>
+                </fieldset>
+                <button type="submit" class="btn <%= isEditing ? "btn-warning" : "btn-success" %>">
+                    <%= isEditing ? "Update" : "Save" %>
+                </button>
 
-                    <fieldset class="form-group">
-                        <label>Poste</label>
-                        <input type="text" class="form-control" name="poste" required>
-                    </fieldset>
-
-                    <fieldset class="form-group">
-                        <label>Salaire</label>
-                        <input type="number" class="form-control" name="salaire" required>
-                    </fieldset>
-
-                    <button type="submit" class="btn btn-success">Save</button>
-                </form>
-
+            </form>
         </div>
     </div>
 </div>

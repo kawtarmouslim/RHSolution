@@ -10,8 +10,7 @@ public class UserDao {
     private String jdbcURL = "jdbc:mysql://localhost:3306/gestion-employe";
     private String jdbcUsername = "root";
     private String jdbcPassword = "";
-    private  static  final  String  SELECT_USER_BY_ID  =  " select id, nom, prenom, poste,salaire from les employe where id =? " ;
-    private  static  final  String  UPDATE_USERS_SQL  =  " update  employe set nom = ?, prenom = ?, poste =?,salaire=? where id = ?; " ;
+    private  static  final  String  SELECT_USER_BY_ID  =  " select id, nom, prenom, poste,salaire from employe where id =? " ;
 
     protected Connection getConnection() {
         Connection connection = null;
@@ -41,20 +40,23 @@ public class UserDao {
             e.printStackTrace();
         }
     }
-    public  boolean updateUser(User user) throws SQLException {
-        boolean rowUpdated;
+    public void updateUser(User user) throws SQLException {
+        String sql = "update employe " +
+                "set nom = ?, prenom = ?, poste = ?, salaire = ? " +
+                "WHERE id = ?;";
+
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(UPDATE_USERS_SQL)) {
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            System.out.println("vbn,;:");
             statement.setString(1, user.getNom());
             statement.setString(2, user.getPrenom());
             statement.setString(3, user.getPoste());
             statement.setInt(4, user.getSalaire());
             statement.setLong(5, user.getId());
-
-            rowUpdated = statement.executeUpdate() > 0;
+            statement.executeUpdate();
         }
-        return rowUpdated;
     }
+
     public User selectUser(Long id) {
         User user = null;
         // Step 1: Establishing a Connection
@@ -106,7 +108,7 @@ public class UserDao {
         String query = "delete from employe where id = ?";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            System.out.println(query);
+            System.out.println("dfgg");
             statement.setLong(1, id);
             statement.executeUpdate();
             System.out.println(query);
