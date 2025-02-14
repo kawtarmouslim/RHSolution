@@ -13,14 +13,13 @@
 
 
         <ul class="navbar-nav">
-            <li><a href="<%=request.getContextPath()%>/list" class="nav-link">Users</a></li>
+            <li><a href="<%=request.getContextPath()%>/list" class="nav-link" >Users</a></li>
         </ul>
     </nav>
 </header>
 <br>
 
 <div class="row">
-    <!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
     <div class="container">
         <h3 class="text-center">List of Users</h3>
@@ -57,11 +56,8 @@
                 <td><%= user.getPoste() %></td>
                 <td><%= user.getSalaire()%></td>
                 <td>
-                    <a href="updatePerson?id=<%= user.getId() %>" class="btn btn-warning btn-sm">Edit</a>
-                    <form action="deleteUser" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="<%= user.getId() %>" />
-                        <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
-                    </form>
+                    <a href="edit?id=<%= user.getId() %>" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="delete?id=<%= user.getId() %>" class="btn btn-warning btn-sm">Delete</a>
                 </td>
             </tr>
             <%

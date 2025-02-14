@@ -17,8 +17,7 @@ public class UserServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDao userDao;
 
-//    public void init() {
-//    }
+
     //constructure
     public UserServlet(){
         userDao=new UserDao();
@@ -97,7 +96,9 @@ public class UserServlet extends HttpServlet {
             throws SQLException, IOException {
         Long id =Long.parseLong(request.getParameter("id"));
         userDao.deleteUser(id);
-        response.sendRedirect("/list");
+        System.out.println("dddddd");
+
+        response.sendRedirect(request.getContextPath() + "/list");
 
     }
     private void showNewForm(HttpServletRequest request, HttpServletResponse response)

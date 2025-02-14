@@ -10,12 +10,7 @@ public class UserDao {
     private String jdbcURL = "jdbc:mysql://localhost:3306/gestion-employe";
     private String jdbcUsername = "root";
     private String jdbcPassword = "";
-  //  private static final  String  INSERT_USERS_SQL  =  " INSERT INTO employe "  +  "   (nom, prenom, poste,salaire) VALEURS "  +
-     //       " (?, ?, ? ,?); " ;
-
     private  static  final  String  SELECT_USER_BY_ID  =  " select id, nom, prenom, poste,salaire from les employe where id =? " ;
-    //private  static  final  String  SELECT_ALL_USERS  =  " select * from  employe " ;
-   // private  static  final  String  DELETE_USERS_SQL  =  " delete  employe where id = ?; " ;
     private  static  final  String  UPDATE_USERS_SQL  =  " update  employe set nom = ?, prenom = ?, poste =?,salaire=? where id = ?; " ;
 
     protected Connection getConnection() {
@@ -111,6 +106,7 @@ public class UserDao {
         String query = "delete from employe where id = ?";
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(query)) {
+            System.out.println(query);
             statement.setLong(1, id);
             statement.executeUpdate();
             System.out.println(query);
